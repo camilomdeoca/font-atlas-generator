@@ -1,0 +1,28 @@
+.fntat
+VERSION 0:
+
+HEADER:
+
+4-byte unsigned int      : version
+4-byte unsigned int      : font atlas image width
+4-byte unsigned int      : font atlas image height
+4-byte unsigned int      : num of rows/glyphs
+16-bytes
+
+Total 32-byte header
+
+
+ROWS:
+
+4-byte UTF32 character : character
+4-byte signed int      : x texture cordinate
+4-byte signed int      : y texture cordinate
+2-byte unsigned int    : character width
+2-byte unsigned int    : character height
+2-byte signed int      : x advance
+2-byte signed int      : y advance
+2-byte signed int      : x offset
+2-byte signed int      : y offset
+
+Total 24-byte row
+
