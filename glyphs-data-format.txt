@@ -7,7 +7,8 @@ HEADER:
 4-byte unsigned int      : font atlas image width
 4-byte unsigned int      : font atlas image height
 4-byte unsigned int      : num of rows/glyphs
-16-bytes
+2-byte unsigned int      : height of rendered font
+14-bytes
 
 Total 32-byte header
 
