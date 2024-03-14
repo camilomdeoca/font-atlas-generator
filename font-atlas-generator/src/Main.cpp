@@ -6,7 +6,7 @@
 #include <png++/rgba_pixel.hpp>
 #include <string>
 
-void createFontAtlasFromFont(char *path, int fontHeight, char *outImage, std::string charSet, unsigned int atlasWidth, unsigned int atlasHeight)
+void createFontAtlasFromFont(char *path, unsigned short fontHeight, char *outImage, std::string charSet, unsigned int atlasWidth, unsigned int atlasHeight)
 {
     const unsigned int wantedChannels = 4;
 
@@ -65,10 +65,11 @@ void createFontAtlasFromFont(char *path, int fontHeight, char *outImage, std::st
     file << "};" << std::endl;
     file.close();
 
-    fontatlas::header header{
+    fontatlas::atlas_header header{
         0,
         {atlasWidth, atlasHeight},
-        static_cast<uint32_t>(fontAtlas.glyphsData.size())
+        static_cast<uint32_t>(fontAtlas.glyphsData.size()),
+        fontHeight
     };
 
     writeGlyphDataFile(std::string(outImage) + ".fntat", header, fontAtlas.glyphsData);    
@@ -82,6 +83,6 @@ int main(int argc, char *argv[])
     }
 
     std::string charSet = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ÁÉÍÓÚáéíóúñ";
-    createFontAtlasFromFont(argv[1], std::stoi(argv[2]), argv[3], charSet, std::stoul(argv[4]), std::stoul(argv[5]));
+    createFontAtlasFromFont(argv[1], std::stoul(argv[2]), argv[3], charSet, std::stoul(argv[4]), std::stoul(argv[5]));
     return 0;
 }

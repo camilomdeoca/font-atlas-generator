@@ -6,13 +6,14 @@
 
 namespace fontatlas {
 
-struct header {
+struct atlas_header {
     uint32_t version;
     struct {
         uint32_t w, h;
     } atlas_size;
     uint32_t num_of_chars_in_atlas;
-    uint8_t pad[16];
+    uint16_t font_height;
+    uint8_t pad[12];
 };
 
 struct glyph_data
@@ -29,6 +30,6 @@ struct glyph_data_row {
     glyph_data data;
 };
 
-std::unordered_map<uint32_t, glyph_data> read_glyph_data_file(const std::string &filepath);
+std::pair<atlas_header, std::unordered_map<uint32_t, glyph_data>> read_glyph_data_file(const std::string &filepath);
 
 }

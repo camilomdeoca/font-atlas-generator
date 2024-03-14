@@ -5,18 +5,18 @@
 
 namespace fontatlas {
 
-std::unordered_map<uint32_t, glyph_data> read_glyph_data_file(const std::string &filepath)
+std::pair<atlas_header, std::unordered_map<uint32_t, glyph_data>> read_glyph_data_file(const std::string &filepath)
 {
+    atlas_header header{0};
     std::unordered_map<uint32_t, glyph_data> result;
 
     std::ifstream file(filepath, std::ios::binary);
 
     if (file.fail()) {
         // Failed to open file
-        return result;
+        return std::pair<atlas_header, std::unordered_map<uint32_t, glyph_data>>(header, result);
     }
 
-    header header;
     file.read(reinterpret_cast<char*>(&header), sizeof(header));
 
     glyph_data_row row;
@@ -26,7 +26,7 @@ std::unordered_map<uint32_t, glyph_data> read_glyph_data_file(const std::string 
         result.insert(std::make_pair(row.char_code, row.data));
     }
 
-    return result;
+    return std::pair<atlas_header, std::unordered_map<uint32_t, glyph_data>>(header, result);
 }
 
 }
